@@ -1,24 +1,23 @@
 package model
 
-
 import (
-	"time"
 	"database/sql"
-	"simpledex/utils"
+	"time"
+
+	"github.com/stepnovij/authBoilerplate/utils"
 )
 
 // email validation??
 type User struct {
-	Id 			  int64 `db:"id"`
-	Email         string `db:"email"`
-	Password      string `db:"password"`
-	Referral_link string `db:"referral_link"`
-	ReferredBy string `db:"referred_by"`
-	Created_at    time.Time `db:"created_at"`
-	Is_confirmed  bool `db:"is_confirmed"`
-	Activation_link string `db:"activation_link"`
+	Id              int64     `db:"id"`
+	Email           string    `db:"email"`
+	Password        string    `db:"password"`
+	Referral_link   string    `db:"referral_link"`
+	ReferredBy      string    `db:"referred_by"`
+	Created_at      time.Time `db:"created_at"`
+	Is_confirmed    bool      `db:"is_confirmed"`
+	Activation_link string    `db:"activation_link"`
 }
-
 
 type db interface {
 	SelectUsers() ([]*User, error)

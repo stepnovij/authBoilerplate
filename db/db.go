@@ -1,9 +1,10 @@
 package db
 
 import (
-	"simpledex/model"
+	"github.com/stepnovij/authBoilerplate/model"
 
 	"database/sql"
+
 	"github.com/jmoiron/sqlx"
 
 	_ "github.com/lib/pq"
@@ -14,13 +15,13 @@ type Config struct {
 }
 
 type pgDb struct {
-	dbConn           *sqlx.DB
-	sqlSelectUsers   *sqlx.Stmt
-	sqlSelectUserByEmail *sqlx.Stmt
-	sqlGetUserById *sqlx.Stmt
-	sqlInsertUser *sqlx.Stmt
+	dbConn                     *sqlx.DB
+	sqlSelectUsers             *sqlx.Stmt
+	sqlSelectUserByEmail       *sqlx.Stmt
+	sqlGetUserById             *sqlx.Stmt
+	sqlInsertUser              *sqlx.Stmt
 	sqlGetUserByActivationLink *sqlx.Stmt
-	sqlActivateUser *sqlx.Stmt
+	sqlActivateUser            *sqlx.Stmt
 }
 
 func InitDb(cfg Config) (*pgDb, error) {
@@ -131,7 +132,6 @@ func (p *pgDb) GetUserByLink(activationLink string) (*model.User, error) {
 	return nil, nil
 }
 
-
 func (p *pgDb) UpdateActivateUser(id int64) (sql.Result, error) {
 	result, err := p.sqlActivateUser.Exec(id)
 	if err != nil {
@@ -139,8 +139,6 @@ func (p *pgDb) UpdateActivateUser(id int64) (sql.Result, error) {
 	}
 	return result, nil
 }
-
-
 
 func (p *pgDb) InsertUser(email string, hashedPassword []byte, isConfirmed bool, referraLink string, referredBy string, activationLink string) (sql.Result, error) {
 	result, err := p.sqlInsertUser.Exec(email, hashedPassword, isConfirmed, referraLink, referredBy, activationLink)
